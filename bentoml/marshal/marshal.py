@@ -155,6 +155,9 @@ class MarshalService:
         ],
         zipkin_api_url: str = Provide[BentoMLContainer.config.tracing.zipkin_api_url],
         outbound_unix_socket: str = None,
+        enable_microbatch: bool = Provide[
+            BentoMLContainer.config.api_server.enable_microbatch
+        ],
     ):
         self._client = None
         self.outbound_unix_socket = outbound_unix_socket
@@ -171,7 +174,9 @@ class MarshalService:
 
         self.bento_service_metadata_pb = load_bento_service_metadata(bento_bundle_path)
 
-        self.setup_routes_from_pb(self.bento_service_metadata_pb)
+        print("### enable_microbatch ###", enable_microbatch)
+        if enable_microbatch:
+            self.setup_routes_from_pb(self.bento_service_metadata_pb)
         if psutil.POSIX:
             import resource
 
@@ -249,6 +254,7 @@ class MarshalService:
                 )
 
     async def request_dispatcher(self, request):
+        print("### Marshal request_dispatcher ###")
         with async_trace(
             self.zipkin_api_url,
             service_name=self.__class__.__name__,
