@@ -100,7 +100,7 @@ Saving a Trained Model
 
         bentoml.tensorflow.save(model, "my_keras_model")
 
-:code:`bentoml.tensorflow` supports saving models with multiple tensors as input.
+``bentoml.tensorflow`` also supports saving models that take multiple tensors as input:
 
 .. code-block:: python
     :caption: `train.py`
