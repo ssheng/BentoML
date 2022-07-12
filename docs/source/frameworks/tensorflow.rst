@@ -20,6 +20,7 @@ Before everything
   * inference with bentoml.tensorflow is about 2x faster than bentoml.keras while being correctly decorated with tf.function
   * bentoml.keras would do input casting just like the original keras model object. Which means using it is more convinient in debuging. No need to `
 
+
 Compatibility
 -------------
 
@@ -118,6 +119,18 @@ Sometime a model may take multiple tensors as input
     ... # training
 
     bentoml.tensorflow.save(model, "my_tf_model")
+
+.. seealso::
+   `bentoml.tensorflow.save`_ has two parameters `tf_signature` and `signatures`.
+   They are important when you want to save a model with a ensured behavior.
+   The `tf_signature` is a dict of tensor names and their shapes, which adaopted from
+   the signature of tensorflow.saved_model.save. You may find more details about it
+   on the `tensorflow.saved_model.save`_ documentation.
+   The `signatures` is a dict of functions names and some other information.
+   If you know your model has a dynamic batch dimension, you can use `signatures` to tell
+   bentoml about that for possible future optimizations like this:
+
+   bentoml.tensorflow.save(model, "my_model", signatures={"__call__": {"batch_dim": 0, "batchable": True}})
 
 
 Step 2: Create & test a Runner
