@@ -126,7 +126,7 @@ Saving a Trained Model
 
 .. note::
 
-    :code:`bentoml.tensorflow.save_model` has two parameters :code:`tf_signature` and :code:`signatures`.
+    :code:`bentoml.tensorflow.save_model` has two parameters: ``tf_signature`` and ``signatures``.
     They are important when you want to save a model with a ensured behavior.
     :code:`tf_signature`, inspired by :code:`tensorflow.saved_model.save`, is a dict of tensor names and their shapes. 
     You may find more details about it on the :code:`tensorflow.saved_model.save` documentation.
