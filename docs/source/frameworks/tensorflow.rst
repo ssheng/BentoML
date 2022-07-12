@@ -8,7 +8,8 @@ serving and deploying models trained from TensorFlow.
 Preface
 -------
 
-Consider using BentoML :ref:`frameworks/keras:Keras` framework if working with a Keras model. If continuing with TensorFlow, make sure the keras model is well signated with `tf.function` `see the difference`_
+Consider using BentoML :ref:`frameworks/keras:Keras` framework if working with a Keras model. If continuing with TensorFlow, make sure the Keras model 
+is decorated with :code:`tf.function`.
 
 .. note::
 
