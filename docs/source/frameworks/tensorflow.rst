@@ -127,12 +127,12 @@ Saving a Trained Model
 .. note::
 
     :code:`bentoml.tensorflow.save_model` has two parameters: ``tf_signature`` and ``signatures``.
-    They are important when you want to save a model with a ensured behavior.
-    :code:`tf_signature`, inspired by :code:`tensorflow.saved_model.save`, is a dict of tensor names and their shapes. 
-    You may find more details about it on the :code:`tensorflow.saved_model.save` documentation.
-    The :code:`signatures` is a dict of functions names and some other information.
-    If you know your model has a dynamic batch dimension, you can use `signatures` to tell
-    bentoml about that for possible future optimizations like this:
+    Use the following arguments to define the model signatures signatures ensure consistent model behaviors in a Python session and from the BentoML model store.
+    - `tf_signatures` is an alias to `tf.saved_model.save <https://www.tensorflow.org/api_docs/python/tf/saved_model/save>`_ *signatures* field. This optional signatures controls which methods in a given `obj <https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/trackable/base.py#L281>`_ will be available to programs that consume `SavedModel's <https://www.tensorflow.org/guide/saved_model>`_, for example, serving APIs. Read more about TensorFlow's signatures behavior `from their API documentation <https://www.tensorflow.org/api_docs/python/tf/saved_model/save>`_.
+    - ``signatures`` refers to a general :ref:`Model Signatures <concepts/model:Model Signatures>`_ that dictates which methods can be used for inference in the Runner context. This signatures dictionary will be used during the creation process of a Runner instance.
+
+The signatures used for creating a Runner is ``{"__call__": {"batchable": False}}``. This means by default, BentoML’s `Adaptive Batching <guides/batching:Adaptive Batching>`_ is disabled when using :obj:`~bentoml.tensorflow.save_model()`. If you want to utilize adaptive batching behavior and know your model's dynamic batching dimension, make sure to pass in ``signatures`` as follow: 
+
 
 
 .. code-block:: python
