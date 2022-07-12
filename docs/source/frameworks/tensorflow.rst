@@ -18,7 +18,9 @@ If you must use TensorFlow for your Keras model, make sure that your Keras model
     - Running Inference with :code:`bentoml.tensorflow` usually halves the time comparing with using ``bentoml.keras``.
     - ``bentoml.keras`` performs input casting that resembles the original Keras model input signatures.
 
-To improve the performance of Keras models, consider applying techniques like **model distillation** or **model quantization**. Alternatively, the Keras model can be converted to a ONNX model and saved with :code:`bentoml.onnx` to leverage better performance runtimes (for eg: TensorRT).
+.. note::
+
+    :bdg-info:`Remarks:` We recommend users apply model optimization techniques such as **distillation** or **quantization**. Alternatively, Keras models can also be converted to :ref:`ONNX <frameworks/onnx>` models and leverage different runtimes (e.g. TensorRT, Apache TVM, etc.).
 
 Compatibility
 -------------
