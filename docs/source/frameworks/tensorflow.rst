@@ -8,8 +8,9 @@ serving and deploying models trained from TensorFlow.
 Preface
 -------
 
-Consider using BentoML :ref:`frameworks/keras:Keras` framework if working with a Keras model. If continuing with TensorFlow, make sure the Keras model 
-is decorated with :code:`tf.function`.
+Even though ``bentoml.tensorflow`` supports Keras model, we recommend our users to use :ref:`bentoml.keras <frameworks/keras>` for better development experience. 
+
+If you must use TensorFlow for your Keras model, make sure that your Keras model inference callback (such as ``predict``) is decorated with :code:`tf.function`.
 
 .. note::
 
