@@ -2,7 +2,7 @@
 Keras
 =====
 
-Users can now use Keras (with Tensorflow v2 backend) with BentoML with the following
+Users can now use Keras (with TensorFlow v2 backend) with BentoML with the following
 APIs:
 
 .. code:: python

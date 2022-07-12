@@ -20,6 +20,6 @@ BentoML is distributed as a Python package available `on PyPI <https://pypi.org/
 
 
 You may need to install additional libraries to use certain BentoML modules or features.
-For example, the :code:`bentoml.tensorflow` module requires Tensorflow to be installed;
+For example, the :code:`bentoml.tensorflow` module requires TensorFlow to be installed;
 The :code:`bentoml.io.Image` class requires :code:`Pillow` to be installed; and to
 export saved models to s3, the :code:`fs-s3fs` package is required.
