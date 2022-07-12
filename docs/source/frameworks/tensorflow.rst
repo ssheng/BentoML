@@ -20,9 +20,14 @@ Before everything
   * inference with bentoml.tensorflow is about 2x faster than bentoml.keras while being correctly decorated with tf.function
   * bentoml.keras would do input casting just like the original keras model object. Which means using it is more convinient in debuging. No need to `
 
+Compatibility
+-------------
 
-Step 1: Save Model
-------------------
+bentoml.tensorflow requires Tensorflow v2.0 or higher.
+
+
+Step 1: Saving a trained model
+------------------------------
 
 `bentoml.tensorflow` supports saving a model in the following format:
 
@@ -128,8 +133,8 @@ Step 2: Create & test a Runner
     # runner.run(input_data)
 
 
-Step 3: Define a service that uses the model
---------------------------------------------
+Step 3: Building a Service using the runner
+-------------------------------------------
 
 .. code-block:: python
 
@@ -155,14 +160,14 @@ To boost your service
 
 
 
-Read More: Micro-Batching
--------------------------
+Read More: Adaptive batching
+----------------------------
 
 If the model can take batch data as the input(quiet common), we can enable the micro-batching feature for higher throuput.
 
 We may modify our code from
 
-.. code-block: python
+.. code-block:: python
 
     class NativeModel(tf.Module):
         @tf.function(
@@ -181,7 +186,7 @@ We may modify our code from
 
 to
 
-.. code-block: python
+.. code-block:: python
 
     class NativeModel(tf.Module):
 
