@@ -14,7 +14,7 @@ If you must use TensorFlow for your Keras model, make sure that your Keras model
 
 .. note::
 
-    - Keras is not optimized for inference in production. There are reports about memory leaks during serving. :code:`bentoml.keras` has same concerns since it rely on the the Keras APIs.
+    - Keras is not optimized for production inferencing. There are `known reports <https://github.com/tensorflow/tensorflow/issues?q=is%3Aissue+sort%3Aupdated-desc+keras+memory+leak>`_ of memory leaks during serving at the time of BentoML 1.0 release. The same issue applies to ``bentoml.keras`` as it heavily relies on the Keras APIs.
     - Inference with :code:`bentoml.tensorflow` is about twice faster than :code:`bentoml.keras`.
     - :code:`bentoml.keras` performs input casting similar to the original Keras model for better debugging experiences.
 
