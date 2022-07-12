@@ -176,7 +176,7 @@ Create a BentoML service with the previously saved `my_tf_model` pipeline using 
     #. Save the model with well-defined :code:`tf.function` decorator.
     #. Apply adaptive batching if possible.
     #. Serve on GPUs if applicable.
-    #. See performance guide from [Tensorflow Doc]
+    #. See performance guide from [TensorFlow Doc]
 
 Adaptive Batching
 -----------------
@@ -242,6 +242,6 @@ We may modify our code from
 
 .. note::
 
-   You can find more examples for **Tensorflow** in our `gallery <https://github.com/bentoml/gallery>`_ repo.
+   You can find more examples for **TensorFlow** in our `gallery <https://github.com/bentoml/gallery>`_ repo.
 
 .. currentmodule:: bentoml.tensorflow
