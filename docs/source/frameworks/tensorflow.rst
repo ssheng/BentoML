@@ -120,17 +120,31 @@ Step 2: Create & test a Runner
 
 .. code-block:: python
 
-   runner = bentoml.tensorflow.get("my_tf_model").to_runner()
-    
-   runner.init_local()  # only for testing, do not call this in a bento service definition
-   runner.__call__.run(input_data)
-   # the same as:
-   # runner.run(input_data)
+    runner = bentoml.tensorflow.get("my_tf_model").to_runner()
+
+    runner.init_local()  # only for testing, do not call this in a bento service definition
+    runner.__call__.run(input_data)
+    # the same as:
+    # runner.run(input_data)
 
 
+Step 3: Define a service that uses the model
+--------------------------------------------
 
-Performance Guide
------------------
+.. code-block:: python
+
+    runner = bentoml.tensorflow.get("my_tf_model").to_runner()
+
+    svc = bentoml.Service(name="test_service", runners=[runner])
+
+    @svc.api(input=JSON(), output=JSON())
+    async def predict(json_obj: JSONSerializable) -> JSONSerializable:
+        batch_ret = await runner.async_run([json_obj])
+        return batch_ret[0]
+
+
+Read More: Performance Guide
+----------------------------
 
 To boost your service
 
@@ -141,8 +155,8 @@ To boost your service
 
 
 
-Micro-Batching
---------------
+Read More: Micro-Batching
+-------------------------
 
 If the model can take batch data as the input(quiet common), we can enable the micro-batching feature for higher throuput.
 
