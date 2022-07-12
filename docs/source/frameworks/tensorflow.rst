@@ -2,7 +2,7 @@
 TensorFlow
 ==========
 
-TensorFlow is an open source machine learning library focusing on training on inference of deep neural networks. BentoML provides native support for 
+TensorFlow is an open source machine learning library focusing on deep neural networks. BentoML provides native support for 
 serving and deploying models trained from TensorFlow.
 
 Preface
