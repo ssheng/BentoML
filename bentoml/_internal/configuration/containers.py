@@ -45,10 +45,14 @@ config_merger = Merger(
 logger = logging.getLogger(__name__)
 
 _check_tracing_type: t.Callable[[str], bool] = lambda s: s in ("zipkin", "jaeger")
-_larger_than: t.Callable[[int | float], t.Callable[[int | float], bool]] = (
+# _larger_than: t.Callable[[int | float], t.Callable[[int | float], bool]] = (
+#     lambda target: lambda val: val > target
+# )
+_larger_than: t.Callable[[int], t.Callable[[int], bool]] = (
     lambda target: lambda val: val > target
 )
-_larger_than_zero: t.Callable[[int | float], bool] = _larger_than(0)
+# _larger_than_zero: t.Callable[[int | float], bool] = _larger_than(0)
+_larger_than_zero: t.Callable[[int], bool] = _larger_than(0)
 
 
 def _is_ip_address(addr: str) -> bool:
@@ -103,11 +107,11 @@ SCHEMA = Schema(
             "metrics": {
                 "enabled": bool,
                 "namespace": str,
-                Optional("duration"): {
-                    Optional("min"): And(float, _larger_than_zero),
-                    Optional("max"): And(float, _larger_than_zero),
-                    Optional("factor"): And(float, _larger_than(1.0)),
-                },
+                # Optional("duration"): {
+                #     Optional("min"): And(float, _larger_than_zero),
+                #     Optional("max"): And(float, _larger_than_zero),
+                #     Optional("factor"): And(float, _larger_than(1.0)),
+                # },
             },
             "logging": {
                 # TODO add logging level configuration
@@ -442,32 +446,32 @@ class _BentoMLContainerClass:
     remote_runner_mapping = providers.Static[t.Dict[str, str]]({})
     plasma_db = providers.Static[t.Optional["ext.PlasmaClient"]](None)
 
-    @providers.SingletonFactory
-    @staticmethod
-    def duration_buckets(
-        metrics: dict[str, t.Any] = Provide[config.api_server.metrics],
-    ) -> tuple[float, ...]:
-        """
-        Returns a tuple of duration buckets in seconds. If not explicitly configured,
-        the Prometheus default is returned; otherwise, a set of exponential buckets
-        generated based on the configuration is returned.
-        """
-        from ..utils.metrics import DEFAULT_BUCKET
-        from ..utils.metrics import exponential_buckets
+    # @providers.SingletonFactory
+    # @staticmethod
+    # def duration_buckets(
+    #     metrics: dict[str, t.Any] = Provide[config.api_server.metrics],
+    # ) -> tuple[float, ...]:
+    #     """
+    #     Returns a tuple of duration buckets in seconds. If not explicitly configured,
+    #     the Prometheus default is returned; otherwise, a set of exponential buckets
+    #     generated based on the configuration is returned.
+    #     """
+    #     from ..utils.metrics import DEFAULT_BUCKET
+    #     from ..utils.metrics import exponential_buckets
 
-        if "duration" not in metrics:
-            return DEFAULT_BUCKET
-        else:
-            duration: dict[str, float] = metrics["duration"]
-            if duration.keys() >= {"min", "max", "factor"}:
-                return exponential_buckets(
-                    duration["min"], duration["factor"], duration["max"]
-                )
-            else:
-                raise BentoMLConfigException(
-                    "Keys 'min', 'max', and 'factor' are required for "
-                    f"'duration' configuration, '{duration}'."
-                )
+    #     if "duration" not in metrics:
+    #         return DEFAULT_BUCKET
+    #     else:
+    #         duration: dict[str, float] = metrics["duration"]
+    #         if duration.keys() >= {"min", "max", "factor"}:
+    #             return exponential_buckets(
+    #                 duration["min"], duration["factor"], duration["max"]
+    #             )
+    #         else:
+    #             raise BentoMLConfigException(
+    #                 "Keys 'min', 'max', and 'factor' are required for "
+    #                 f"'duration' configuration, '{duration}'."
+    #             )
 
 
 BentoMLContainer = _BentoMLContainerClass()

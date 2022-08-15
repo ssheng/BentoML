@@ -1,4 +1,4 @@
-from __future__ import annotations
+# from __future__ import annotations
 
 import logging
 import contextvars
@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 from simple_di import inject
 from simple_di import Provide
 
-from ..utils.metrics import metric_name
+# from ..utils.metrics import metric_name
 from ..configuration.containers import BentoMLContainer
 
 if TYPE_CHECKING:
@@ -36,26 +36,29 @@ class MetricsMiddleware:
     def _setup(
         self,
         metrics_client: "PrometheusClient" = Provide[BentoMLContainer.metrics_client],
-        duration_buckets: tuple[float, ...] = Provide[
-            BentoMLContainer.duration_buckets
-        ],
+        # duration_buckets: tuple[float, ...] = Provide[
+        #     BentoMLContainer.duration_buckets
+        # ],
     ):
         self.metrics_client = metrics_client
         service_name = self.bento_service.name
 
         self.metrics_request_duration = metrics_client.Histogram(
-            name=metric_name(service_name, "request_duration_seconds"),
+            # name=metric_name(service_name, "request_duration_seconds"),
+            name=service_name + "_request_duration_seconds",
             documentation="API HTTP request duration in seconds",
             labelnames=["endpoint", "service_version", "http_response_code"],
-            buckets=duration_buckets,
+            # buckets=duration_buckets,
         )
         self.metrics_request_total = metrics_client.Counter(
-            name=metric_name(service_name, "request_total"),
+            # name=metric_name(service_name, "request_total"),
+            name=service_name + "_request_total",
             documentation="Total number of HTTP requests",
             labelnames=["endpoint", "service_version", "http_response_code"],
         )
         self.metrics_request_in_progress = metrics_client.Gauge(
-            name=metric_name(service_name, "request_in_progress"),
+            # name=metric_name(service_name, "request_in_progress"),
+            name=service_name + "_request_in_progress",
             documentation="Total number of HTTP requests in progress now",
             labelnames=["endpoint", "service_version"],
             multiprocess_mode="livesum",
