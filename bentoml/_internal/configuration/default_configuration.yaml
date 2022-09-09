@@ -40,14 +40,13 @@ runners:
   timeout: 300
 
 tracing:
-  type: zipkin
-  sample_rate: Null
-  excluded_urls: Null
+  type: otlp
+  sample_rate: 1.0
   zipkin:
     url: Null
   jaeger:
     address: Null
     port: Null
   otlp:
-    protocol: Null
-    url: Null
+    protocol: grpc
+    url: http://localhost:4317

@@ -10,7 +10,7 @@ class EchoRunnable(bentoml.Runnable):
         # load the model instance
         self.tracer = BentoMLContainer.tracer_provider.get().get_tracer(__name__)
 
-    @bentoml.Runnable.method(batchable=False)
+    @bentoml.Runnable.method(batchable=True)
     def echo(self, input_data: list[int]) -> list[int]:
         with self.tracer.start_as_current_span("custom_span"):
             import time
