@@ -42,11 +42,12 @@ runners:
 tracing:
   type: otlp
   sample_rate: 1.0
+  excluded_urls: Null
   zipkin:
     url: Null
   jaeger:
     address: Null
     port: Null
   otlp:
-    protocol: grpc
-    url: http://localhost:4317
+    protocol: http
+    url: http://localhost:4318/v1/traces

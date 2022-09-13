@@ -12,10 +12,7 @@ class EchoRunnable(bentoml.Runnable):
 
     @bentoml.Runnable.method(batchable=True)
     def echo(self, input_data: list[int]) -> list[int]:
-        with self.tracer.start_as_current_span("custom_span"):
-            import time
-            time.sleep(0.1)
-            return input_data
+        return input_data
 
 echo_runner = bentoml.Runner(EchoRunnable, name="echo_runner")
 svc = bentoml.Service("echo_service", runners=[echo_runner])
