@@ -1,6 +1,8 @@
 service: "service:svc"
 include:
 - "*.py"
+labels:
+  supports_gpu: "true"
 docker:
   cuda_version: "11.6.2"
 python:
